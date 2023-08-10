@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class SettingController extends Controller
@@ -14,7 +15,8 @@ class SettingController extends Controller
     public function index()
     {
         //
-        return view('dashboard.settings.index');
+        $setting = Setting::first();
+        return view('dashboard.settings.index', compact('setting'));
     }
 
     /**
@@ -59,8 +61,8 @@ class SettingController extends Controller
         $validator = Validator($request->all(), [
             'name' => 'string|nullable',
             'description' => 'string|nullable',
-            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
-            'favicon' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
+            'favicon' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
             'email' => 'email|nullable',
             'phone' => 'string|nullable',
             'address' => 'string|nullable',
@@ -71,31 +73,45 @@ class SettingController extends Controller
             'tiktok' => 'string|nullable',
         ]);
         if (!$validator->fails()) {
-            // dd($setting->id);
-            $setting->name = $request->name;
-            $setting->description = $request->description;
-            $setting->email = $request->email;
-            $setting->phone = $request->phone;
-            $setting->address = $request->address;
-            $setting->facebook = $request->facebook;
-            $setting->twitter = $request->twitter;
-            $setting->instagram = $request->instagram;
-            $setting->youtube = $request->youtube;
-            $setting->tiktok = $request->tiktok;
             if ($request->has('logo')) {
-                $image = $request->file('logo');
-                $imageName = time() . '_Logo.' . $image->getClientOriginalExtension();
-                $image->storeAs('images', $imageName, ['disk' => 'public']);
-                $setting->logo = $imageName;
+                File::delete(public_path($setting->logo));
+                $path_logo = $request->file('logo')->store('images', 'store');
             }
             if ($request->has('favicon')) {
-                $img = $request->file('favicon');
-                $imgName = time() . '_Favicon.' . $img->getClientOriginalExtension();
-                $img->storeAs('images', $imgName, ['disk' => 'public']);
-                $setting->favicon = $imgName;
+                File::delete(public_path($setting->favicon));
+                $path_favicon = $request->file('favicon')->store('images', 'store');
             }
-            $setting->update();
-            return redirect()->route('dashboard.settings.index')->with('success', 'تم تحديث الاعدادات بنجاح');
+            $data = $request->except('_token', 'logo', 'favicon');
+            $data['logo'] = $path_logo;
+            $data['favicon'] = $path_favicon;
+            $setting->update($data);;
+
+            // $setting->name = $request->name;
+            // $setting->description = $request->description;
+            // $setting->email = $request->email;
+            // $setting->phone = $request->phone;
+            // $setting->address = $request->address;
+            // $setting->facebook = $request->facebook;
+            // $setting->twitter = $request->twitter;
+            // $setting->instagram = $request->instagram;
+            // $setting->youtube = $request->youtube;
+            // $setting->tiktok = $request->tiktok;
+            // if ($request->has('logo')) {
+            //     $image = $request->file('logo');
+            //     $imageName = time() . '_Logo.' . $image->getClientOriginalExtension();
+            //     $image->storeAs('images', $imageName, ['disk' => 'public']);
+            //     $setting->logo = $imageName;
+            // }
+            // if ($request->has('favicon')) {
+            //     $img = $request->file('favicon');
+            //     $imgName = time() . '_Favicon.' . $img->getClientOriginalExtension();
+            //     $img->storeAs('images', $imgName, ['disk' => 'public']);
+            //     $setting->favicon = $imgName;
+            // }
+            // $setting->update();
+            return redirect()->route('dashboard.settings.index')
+                ->with('success', 'تم تحديث الاعدادات بنجاح')
+                ->with('icon', 'success');;
         } else {
             dd('Fails');
         }

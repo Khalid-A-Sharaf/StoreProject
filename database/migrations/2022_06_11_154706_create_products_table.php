@@ -16,10 +16,15 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->longText('description');
+            $table->string('slug')->unique();
+            $table->longText('description')->nullable();
             $table->string('image');
-            $table->decimal('price',8,2)->nullable();
-            $table->decimal('discount_price', 8,2)->nullable();
+            $table->decimal('price', 10, 2)->nullable();
+            $table->decimal('discount_price', 10, 2)->nullable();
+            $table->json('options')->nullable();
+            $table->double('rating')->default(0);
+            $table->boolean('featured')->default(0);
+            $table->enum('status', ['active', 'draft', 'archived'])->default('active');
             $table->foreignId('category_id')->references('id')->on('categories');
             $table->timestamps();
             $table->softDeletes();

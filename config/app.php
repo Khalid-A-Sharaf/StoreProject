@@ -1,7 +1,13 @@
 <?php
 
+use App\Helpers\Currency;
+use Illuminate\Support\Facades\App;
+use App\Providers\AppServiceProvider;
 use Illuminate\Support\Facades\Facade;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 
 return [
 
@@ -71,6 +77,8 @@ return [
     */
 
     'timezone' => 'UTC',
+
+    'currency' => 'USD',
 
     /*
     |--------------------------------------------------------------------------
@@ -163,11 +171,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
+        AppServiceProvider::class,
+        AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        EventServiceProvider::class,
+        RouteServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -183,6 +191,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Currency' => Currency::class,
     ])->toArray(),
 
 ];

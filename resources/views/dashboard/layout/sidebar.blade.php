@@ -1,23 +1,24 @@
  <!-- Page Sidebar Start-->
  <div class="page-sidebar">
-     <div class="main-header-left d-none d-lg-block">
-         <div class="logo-wrapper">
+      <div class="main-header-left d-none d-lg-block">
+         {{-- <div class="logo-wrapper">
              <a href="{{ route('admin') }}">
                  <img class="d-none d-lg-block blur-up lazyloaded" src="{{Storage::url('images/' . $setting->logo)}}" alt=""
-                 style="max-height: 110px; margin-top: 50px; border-radius: 50%">
+                 style="max-height: 125px">
              </a>
-         </div>
+         </div> --}}
+         <div class="sidebar-user">
+        {{-- <a href="{{ route('dashboard.categories.create') }}" class="sidebar-back d-lg-none d-block"><i class="fa fa-times"
+           aria-hidden="true"></i></a> --}}
+       <a href="{{ route('admin') }}"> <img class="img-60 d-none d-lg-block blur-up lazyloaded" src="{{Storage::url('images/' . $setting->logo)}}" alt="#"></a>
+        <div>
+            <h6 class="f-14">JOHN</h6>
+            <p>general manager.</p>
+        </div>
+    </div>
      </div>
      <div class="sidebar custom-scrollbar">
-         {{-- <a href="javascript:void(0)" class="sidebar-back d-lg-none d-block"><i class="fa fa-times"
-                 aria-hidden="true"></i></a>
-         <div class="sidebar-user">
-             <img class="img-60" src="assets/images/dashboard/user3.jpg" alt="#">
-             <div>
-                 <h6 class="f-14">JOHN</h6>
-                 <p>general manager.</p>
-             </div>
-         </div> --}}
+
          <ul class="sidebar-menu">
              <li>
                  <a class="sidebar-header" href="{{ route('admin') }}">
@@ -52,14 +53,14 @@
                  </a>
                  <ul class="sidebar-submenu">
                      <li>
-                         {{-- <a href="{{ route('dashboard.products.index') }}"> --}}
+                         <a href="{{ route('dashboard.products.index') }}">
                          <i class="fa fa-circle"></i>المنتجات
-                         {{-- </a> --}}
+                         </a>
                      </li>
                      <li>
-                         {{-- <a href="{{ route('dashboard.products.create') }}"> --}}
+                         <a href="{{ route('dashboard.products.create') }}">
                          <i class="fa fa-circle"></i>اضافة منتج
-                         {{-- </a> --}}
+                         </a>
                      </li>
                  </ul>
              </li>
@@ -137,10 +138,10 @@
 
 
              <li>
-                 {{-- <a class="sidebar-header" href="{{ route('login') }}"> --}}
+                 <a class="sidebar-header" href="{{ route('admin') }}">
                  <i data-feather="log-in"></i>
                  <span>تسجيل الخروج</span>
-                 {{-- </a> --}}
+                 </a>
              </li>
          </ul>
      </div>
@@ -169,7 +170,7 @@
                  <div class="people-list friend-list">
                      <ul class="list">
                          <li class="clearfix">
-                             <img class="rounded-circle user-image blur-up lazyloaded" src="assets/images/dashboard/user.jpg" alt="">
+                             <img class="rounded-circle user-image blur-up lazyloaded" src="{{ asset('dashboard/assets/images/dashboard/user.jpg') }}" alt="">
                              <div class="status-circle online"></div>
                              <div class="about">
                                  <div class="name">Vincent Porter</div>
@@ -177,7 +178,7 @@
                              </div>
                          </li>
                          <li class="clearfix">
-                             <img class="rounded-circle user-image blur-up lazyloaded" src="assets/images/dashboard/user1.jpg" alt="">
+                             <img class="rounded-circle user-image blur-up lazyloaded" src="{{ asset('dashboard/assets/images/dashboard/user1.jpg') }}" alt="">
                              <div class="status-circle away"></div>
                              <div class="about">
                                  <div class="name">Ain Chavez</div>
@@ -185,7 +186,7 @@
                              </div>
                          </li>
                          <li class="clearfix">
-                             <img class="rounded-circle user-image blur-up lazyloaded" src="assets/images/dashboard/user2.jpg" alt="">
+                             <img class="rounded-circle user-image blur-up lazyloaded" src="{{ asset('dashboard/assets/images/dashboard/user2.jpg') }}" alt="">
                              <div class="status-circle online"></div>
                              <div class="about">
                                  <div class="name">Kori Thomas</div>
@@ -193,7 +194,7 @@
                              </div>
                          </li>
                          <li class="clearfix">
-                             <img class="rounded-circle user-image blur-up lazyloaded" src="assets/images/dashboard/user3.jpg" alt="">
+                             <img class="rounded-circle user-image blur-up lazyloaded" src="{{ asset('dashboard/assets/images/dashboard/user3.jpg') }}" alt="">
                              <div class="status-circle online"></div>
                              <div class="about">
                                  <div class="name">Erica Hughes</div>
@@ -201,7 +202,7 @@
                              </div>
                          </li>
                          <li class="clearfix">
-                             <img class="rounded-circle user-image blur-up lazyloaded" src="assets/images/dashboard/user3.jpg" alt="">
+                             <img class="rounded-circle user-image blur-up lazyloaded" src="{{ asset('dashboard/assets/images/dashboard/user3.jpg') }}" alt="">
                              <div class="status-circle offline"></div>
                              <div class="about">
                                  <div class="name">Ginger Johnston</div>
@@ -209,7 +210,7 @@
                              </div>
                          </li>
                          <li class="clearfix">
-                             <img class="rounded-circle user-image blur-up lazyloaded" src="assets/images/dashboard/user5.jpg" alt="">
+                             <img class="rounded-circle user-image blur-up lazyloaded" src="{{ asset('dashboard/assets/images/dashboard/user5.jpg') }}" alt="">
                              <div class="status-circle away"></div>
                              <div class="about">
                                  <div class="name">Prasanth Anand</div>
@@ -217,7 +218,7 @@
                              </div>
                          </li>
                          <li class="clearfix">
-                             <img class="rounded-circle user-image blur-up lazyloaded" src="assets/images/dashboard/designer.jpg" alt="">
+                             <img class="rounded-circle user-image blur-up lazyloaded" src="{{ asset('dashboard/assets/images/dashboard/designer.jpg') }}" alt="">
                              <div class="status-circle online"></div>
                              <div class="about">
                                  <div class="name">Hileri Jecno</div>

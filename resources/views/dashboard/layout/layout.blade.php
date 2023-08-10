@@ -21,13 +21,17 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
 
-
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ asset('dashboard/assets/toastr/toastr.min.css') }}">
     <!-- Font Awesome-->
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard') }}/assets/css/vendors/font-awesome.css">
-
+ <!-- Font Awesome Icons -->
+ <link rel="stylesheet" href="{{ asset('dashboard/assets/fontawesome-free/css/all.min.css') }}">
     <!-- Flag icon-->
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard') }}/assets/css/vendors/flag-icon.css">
-
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet"
+        href="{{ asset('dashboard') }}/assets/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- ico-font-->
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard') }}/assets/css/vendors/icofont.css">
 
@@ -44,7 +48,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard') }}/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard') }}/dropify.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="{{ asset('dashboard') }}/select2.min.css">
+    <link rel="stylesheet" href="{{ asset('dashboard') }}/assets/css/select2.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" integrity="sha384-PJsj/BTMqILvmcej7ulplguok8ag4xFTPryRq8xevL7eBYSmpXKcbNVuy+P0RMgq" crossorigin="anonymous"> --}}
+    {{-- <style>
+        .btn-outline-danger {
+            background-color: #dc3545 !important;
+        }
+    </style> --}}
 </head>
 
 <body class="rtl">
@@ -59,7 +69,7 @@
                     <div class="logo-wrapper">
                         {{-- <a href="{{ route('admin') }}"> --}}
                             {{-- <img class="blur-up lazyloaded d-block d-lg-none" src="{{ asset($setting->logo) }}" --}}
-                                alt="">
+                                {{-- alt=""> --}}
                         {{-- </a> --}}
                     </div>
                 </div>
@@ -75,9 +85,9 @@
                 <div class="nav-right col">
                     <ul class="nav-menus">
                         <li>
-                            <form class="form-inline search-form">
+                            <form class="form-inline search-form" action="{{ URL::current() }}" method="get">
                                 <div class="form-group">
-                                    <input class="form-control-plaintext" type="search" placeholder="Search..">
+                                    <input class="form-control-plaintext" name="search" type="search" placeholder="Search..">
                                     <span class="d-sm-none mobile-search">
                                         <i data-feather="search"></i>
                                     </span>
@@ -168,7 +178,7 @@
                         <li class="onhover-dropdown">
                             <div class="media align-items-center">
                                 <img class="align-self-center pull-right img-50 blur-up lazyloaded"
-                                    src="assets/images/dashboard/user3.jpg" alt="header-user">
+                                    src="{{Storage::url('images/' . $setting->logo)}}" style="border-radius: 50%" alt="header-user">
                                 <div class="dotted-animation">
                                     <span class="animate-circle"></span>
                                     <span class="main-circle"></span>
@@ -282,7 +292,7 @@
     {{-- <script src="{{ asset('dashboard') }}/assets/js/admin-customizer.js"></script> --}}
 
     <!--dashboard custom js-->
-    <script src="{{ asset('dashboard') }}/assets/js/dashboard/default.js"></script>
+    <script src="{{ asset('dashboard/assets/js/dashboard/default.js') }}"></script>
 
     <!--right sidebar js-->
     <script src="{{ asset('dashboard') }}/assets/js/chat-menu.js"></script>
@@ -298,13 +308,28 @@
     <script src="{{ asset('dashboard') }}/dropify.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-    <script src="{{ asset('dashboard') }}/select2.min.js"></script>
+    <script src="{{ asset('dashboard') }}/assets/js/select2.min.js"></script>
+    <!-- Bootstrap 4 -->
+    {{-- <script src="{{ asset('dashboard') }}/assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+     <!-- Bootstrap4 Duallistbox -->
+    <script src="{{ asset('dashboard') }}/assets/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')"></script>
+    <!-- bootstrap color picker -->
+    <script src="{{ asset('dashboard') }}/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{{ asset('dashboard') }}/assets/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')"></script>
+    <!-- Bootstrap Switch -->
+    <script src="{{ asset('dashboard') }}/assets/bootstrap-switch/js/bootstrap-switch.min.js')"></script> --}}
+
+    <script src="{{ asset('dashboard/assets/toastr/toastr.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script>
         $('.dropify').dropify();
     </script>
 
 
     @stack('javascripts')
+    @yield('scripts')
 </body>
 
 </html>

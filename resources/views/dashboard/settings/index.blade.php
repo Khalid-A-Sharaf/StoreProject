@@ -1,31 +1,27 @@
-@extends('dashboard.layout.layout')
+@extends('layouts.master')
 
-@section('body')
-<div class="page-body">
-    <!-- Container-fluid starts-->
-    <div class="container-fluid">
-        <div class="page-header">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="page-header-left">
-                        <h3>إعدادت الموقع
-                        </h3>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <ol class="breadcrumb pull-right">
-                        <li class="breadcrumb-item">
-                            <a href="index.html">
-                                <i data-feather="home"></i>
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">لوحة التحكم</li>
-                        <li class="breadcrumb-item active">إعدادات الموقع</li>
-                    </ol>
-                </div>
+@section('css')
+
+@endsection
+
+@section('page-header')
+    <!-- breadcrumb -->
+    <div class="breadcrumb-header justify-content-between">
+        <div class="my-auto">
+            <div class="d-flex">
+                <h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/
+                    اضافة فاتورة</span>
             </div>
         </div>
     </div>
+    <!-- breadcrumb -->
+@endsection
+
+@section('content')
+
+
+<div class="page-body">
+    <!-- Container-fluid starts-->
     <!-- Container-fluid Ends-->
 
     <!-- Container-fluid starts-->
@@ -34,7 +30,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>الاعدادات</h5>
+                        <h3>الاعدادات</h3>
                     </div>
                     <div class="card-body">
                         <div class="digital-add needs-validation">
@@ -49,11 +45,11 @@
                                 <div class="form-group">
                                     <label for="validationCustom05" class="col-form-label pt-0">
                                         لوجو الموقع</label>
-                                    <input class="form-control dropify" id="validationCustom05" type="file" name="logo" data-default-file="{{ Storage::url('images/' . $setting->logo) }}">
+                                    <input class="form-control dropify" id="validationCustom05" type="file" name="logo" data-default-file="{{ asset($setting->logo) }}">
                                 </div>
                                 <div class="form-group">
                                     <label class="col-form-label ">الصورة المصغرة</label>
-                                    <input class="form-control dropify" id="validationCustom05" type="file" name="favicon" data-default-file="{{Storage::url('images/' . $setting->favicon)}}">
+                                    <input class="form-control dropify" id="validationCustom05" type="file" name="favicon" data-default-file="{{asset($setting->favicon)}}">
                                 </div>
 
 
@@ -66,7 +62,7 @@
 
                                 <div class="form-group">
                                     <label class="col-form-label">وصف الموقع</label>
-                                    <textarea rows="5" cols="12" name="description">{{$setting->twitter}}</textarea>
+                                    <textarea rows="5" class="form-control" cols="12" name="description">{{$setting->description}}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="validationCustom02" class="col-form-label"><span>*</span>
@@ -126,4 +122,32 @@
     </div>
     <!-- Container-fluid Ends-->
 </div>
+
 @endsection
+
+
+@section('js')
+
+<script>
+    const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+    })
+
+
+    @if (session('success'))
+    Toast.fire({
+    icon: '{{ session("icon") }}',
+    title: '{{ session("success") }}'
+    })
+    @endif
+</script>
+@endsection
+

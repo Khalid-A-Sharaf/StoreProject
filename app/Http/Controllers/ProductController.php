@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Color;
 use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Support\Str;
+// use App\Models\ProductColor;
+use App\Models\ProductColor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -13,6 +19,10 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $products = Product::has('productColor')->withCount('productColor')->latest()->get();
+        $X_products = ProductColor::all();
+        // dd($X_product);
+        return view('dashboard.products.index', compact('products', 'X_products'));
     }
 
     /**
@@ -21,14 +31,43 @@ class ProductController extends Controller
     public function create()
     {
         //
+        $categories = Category::with('child')->get();
+        return view('dashboard.products.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Product $products)
     {
         //
+        $validator = Validator($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'nullable|numeric',
+            'category_id' => 'required|numeric|exists:categories,id',
+            'discount_price' => 'nullable|numeric',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required'
+        ]);
+        if (!$validator->fails()) {
+            if ($request->has('image')) {
+                $path = $request->file('image')->store('images', 'store');
+            }
+            $data = $request->except('_token', 'image');
+            $data['image'] = $path;
+            $products = Product::create($data);
+
+            foreach ($request->colors as $color) {
+                $products->productColor()->create([
+                    'color' => $color
+                ]);
+            }
+            return redirect()->route('dashboard.products.index')
+                ->with('success', 'تمت اضافة قسم جديد بنجاح')
+                ->with('icon', 'info');
+        } else {
+            dd('Fails');
+        }
     }
 
     /**
@@ -45,6 +84,10 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         //
+        $parents = Category::all();
+        // $colors = implode(' | ', $product->colors()->pluck('color')->toArray());
+        $colors = $product->colors()->pluck('color');
+        return view('dashboard.products.edit', compact('product', 'parents', 'colors'));
     }
 
     /**
@@ -53,6 +96,51 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         //
+        $validator = Validator($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'category_id' => 'required|numeric|exists:categories,id',
+            'discount_price' => 'required|numeric',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable'
+        ]);
+        dd($request->colors);
+
+        if (!$validator->fails()) {
+            $data = $request->except('_token', 'image', 'colors');
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('images', 'store');
+                $data['image'] = $path;
+            }
+            $product->update($data);
+            // $colors = explode(',', $request->colors);
+            $colors = $request->colors;
+            $color_ids = [];
+            $colors_pro = Color::all();
+            foreach ($colors as $c_color) {
+                $slug = Str::slug($c_color);
+                $color = $colors_pro->where('slug', $slug)->first();
+                if (!$color) {
+                    $color = Color::create([
+                        'color' => $c_color,
+                        'slug' => $slug,
+                    ]);
+                }
+                $color_ids[] = $color->id;
+            }
+
+            $product->colors()->sync($color_ids);
+            // foreach ($request->colors as $color) {
+            // $product->colors()->update([
+            //         'color' => $color
+            //     ]);
+            // }
+            return redirect()->route('dashboard.products.index')
+                ->with('success', 'تمت اضافة قسم جديد بنجاح')
+                ->with('icon', 'info');
+        } else {
+            dd('Fails');
+        }
     }
 
     /**
