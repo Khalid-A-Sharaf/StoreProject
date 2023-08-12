@@ -53,13 +53,18 @@ class ProductController extends Controller
             if ($request->has('image')) {
                 $path = $request->file('image')->store('images', 'store');
             }
+            $name = $request->name;
             $data = $request->except('_token', 'image');
+            $slug = Str::slug($name);
             $data['image'] = $path;
+            $data['slug'] = $slug;
             $products = Product::create($data);
 
             foreach ($request->colors as $color) {
+                $slug = Str::slug($color);
                 $products->productColor()->create([
-                    'color' => $color
+                    'color' => $color,
+                    'slug' => $slug,
                 ]);
             }
             return redirect()->route('dashboard.products.index')
@@ -104,7 +109,6 @@ class ProductController extends Controller
             'discount_price' => 'required|numeric',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable'
         ]);
-        dd($request->colors);
 
         if (!$validator->fails()) {
             $data = $request->except('_token', 'image', 'colors');

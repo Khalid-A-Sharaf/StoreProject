@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use App\Models\User;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +33,17 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             });
             view()->share('setting', $setting);
+        }
+
+        if (!app()->runningInConsole()) {
+            $user = User::firstOr(function () {
+                return User::create([
+                    'name' => 'Mohammed Sharaf',
+                    'email' => 'moh@gmail.com',
+                    'password' => '123'
+                ]);
+            });
+            view()->share('user', $user);
         }
 
         Paginator::useBootstrap();

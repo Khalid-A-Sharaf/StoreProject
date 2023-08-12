@@ -319,22 +319,6 @@
                         title: response.data.message
                     })
                     // toastr.success(response.data.message);
-                    // var table = document.getElementById('table');
-                    // var row = table.insertRow(0);
-                    // var cell1 = row.insertCell(0);
-                    // var cell2 = row.insertCell(1);
-                    // var cell3 = row.insertCell(2);
-                    // var cell4 = row.insertCell(3);
-                    // var cell5 = row.insertCell(4);
-                    // var table = document.getElementById('table');
-                    // let name = response.data.info.name;
-                    // let image = response.data.info.image;
-                    // let parent_id = response.data.info.parent_id;
-                    // // console.log(name);
-
-                    // let template =
-                    //     `<tr><td>${name}</td><td><img style="height: 80px; width: 70px" src="asset(${image})" alt=""></td><td>${parent_id}</td><td></td></tr>`;
-                    // table.innerHTML += template;
 
                 })
                 .catch(function(error) {
@@ -351,14 +335,6 @@
                     const truck_modal = document.querySelector('#exampleModal');
                     const modal = bootstrap.Modal.getInstance(truck_modal);
                     modal.hide();
-
-                    // var first_tr = table.firstElementChild;
-                    // var tr_clone = first_tr.cloneNode(true);
-                    // table.append(tr_clone);
-                    // console.log(tr_clone.value);
-                    // const modal = document.getElementById('exampleModal');
-                    // modal.hide();
-                    // document.getElementById('exampleModal').modal('hide');
                 });
         }
     </script>

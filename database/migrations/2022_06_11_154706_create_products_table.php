@@ -19,13 +19,13 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->longText('description')->nullable();
             $table->string('image');
-            $table->decimal('price', 10, 2)->nullable();
+            $table->decimal('price', 10, 2)->default(0);
             $table->decimal('discount_price', 10, 2)->nullable();
             $table->json('options')->nullable();
             $table->double('rating')->default(0);
             $table->boolean('featured')->default(0);
             $table->enum('status', ['active', 'draft', 'archived'])->default('active');
-            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

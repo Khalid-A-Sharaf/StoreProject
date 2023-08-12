@@ -3,6 +3,7 @@
 use App\Helpers\Currency;
 use Illuminate\Support\Facades\App;
 use App\Providers\AppServiceProvider;
+use App\Providers\CartServiceProvider;
 use Illuminate\Support\Facades\Facade;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\ServiceProvider;
@@ -176,6 +177,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         EventServiceProvider::class,
         RouteServiceProvider::class,
+        CartServiceProvider::class,
     ])->toArray(),
 
     /*

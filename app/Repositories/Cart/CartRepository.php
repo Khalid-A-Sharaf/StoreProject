@@ -11,11 +11,11 @@ interface CartRepository
 
     public function add(Product $product, $quantity = 1);
 
-    public function update(Product $product, $quantity);
+    public function update($id, $quantity);
 
-    public function delete(Product $product);
+    public function delete($id);
 
     public function empty($item);
 
-    public function total($item): float;
+    public function total(): float;
 }

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Product extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['name', 'description', 'image', 'price', 'discount_price', 'category_id'];
+    protected $fillable = ['name', 'slug', 'description', 'image', 'price', 'discount_price', 'category_id', 'featured', 'rating', 'options', 'status'];
     protected $table = 'products';
     protected $casts = [
         'color' => 'array'
