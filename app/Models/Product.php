@@ -22,21 +22,6 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id')->withDefault();
     }
 
-    public function productColorSize()
-    {
-        return $this->hasMany(ProductColorSize::class, 'product_id');
-    }
-
-    public function productColor()
-    {
-        return $this->hasMany(ProductColor::class, 'product_id');
-    }
-
-    public function productSize()
-    {
-        return $this->hasMany(ProductSize::class, 'product_id');
-    }
-
     public function colors()
     {
         return $this->belongsToMany(Color::class, 'product_color', 'product_id', 'color_id', 'id', 'id');

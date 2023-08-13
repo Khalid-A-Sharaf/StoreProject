@@ -54,9 +54,9 @@ class CartModelRepository implements CartRepository
         Cart::where('product_id', $id)->delete();
     }
 
-    public function empty($item)
+    public function empty()
     {
-        Cart::query()->destroy();
+        Cart::query()->delete();
     }
 
     public function total(): float

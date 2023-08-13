@@ -1,4 +1,4 @@
-@extends('layouts_user.parent')
+@extends('layouts_user.mastr')
 
 @section('title', '')
 
@@ -6,7 +6,7 @@
 @endsection
 
 
-@section('path')
+@section('Breadcrumbs')
 @endsection
 
 @section('content')
@@ -14,5 +14,5 @@
 @endsection
 
 
-@section('css')
+@section('js')
 @endsection

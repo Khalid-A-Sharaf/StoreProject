@@ -20,6 +20,10 @@ return new class extends Migration
             $table->string('number')->unique();
             $table->string('payment_method');
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending');
+            $table->double('shipping')->default(0);
+            $table->double('tax')->default(0);
+            $table->double('discount')->default(0);
+            $table->double('total')->default(0);
             $table->timestamps();
         });
     }

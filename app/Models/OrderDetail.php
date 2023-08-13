@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class OrderDetail extends Model
+class OrderDetail extends Pivot
 {
     use HasFactory;
-    protected $fillable = ['id', 'order_id', 'product_color_size_id', 'price', 'quantity', 'discount'];
+    public $incrementing = true;
     protected $table = 'order_details';
 
     public function order()
@@ -16,8 +17,10 @@ class OrderDetail extends Model
         return $this->belongsTo(Order::class);
     }
 
-    public function productColorSize()
+    public function product()
     {
-        return $this->belongsTo(ProductColorSize::class);
+        return $this->belongsTo(Product::class)->withDefault([
+            'name' => $this->product_name
+        ]);
     }
 }

@@ -15,7 +15,7 @@ interface CartRepository
 
     public function delete($id);
 
-    public function empty($item);
+    public function empty();
 
     public function total(): float;
 }

@@ -19,8 +19,8 @@ class ProductController extends Controller
     public function index()
     {
         //
-        $products = Product::has('productColor')->withCount('productColor')->latest()->get();
-        $X_products = ProductColor::all();
+        $products = Product::has('colors')->withCount('colors')->latest()->get();
+        $X_products = Color::all();
         // dd($X_product);
         return view('dashboard.products.index', compact('products', 'X_products'));
     }
@@ -62,7 +62,7 @@ class ProductController extends Controller
 
             foreach ($request->colors as $color) {
                 $slug = Str::slug($color);
-                $products->productColor()->create([
+                $products->colors()->create([
                     'color' => $color,
                     'slug' => $slug,
                 ]);

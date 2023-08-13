@@ -3,6 +3,7 @@
         <i class="lni lni-cart"></i>
         <span class="total-items">{{ $items->count() }}</span>
     </a>
+
     <!-- Shopping Item -->
     <div class="shopping-item">
         <div class="dropdown-cart-header">
@@ -32,9 +33,11 @@
                 <span class="total-amount">{{ Currency::format($total) }}</span>
             </div>
             <div class="button">
-                <a href="checkout.html" class="btn animate">Checkout</a>
+                <a href="{{ route('checkout.create') }}" class="btn animate">Checkout</a>
             </div>
         </div>
     </div>
     <!--/ End Shopping Item -->
+
+
 </div>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('image');
             $table->decimal('price', 10, 2)->default(0);
             $table->decimal('discount_price', 10, 2)->nullable();
+            $table->unsignedSmallInteger('quantity')->default(1);
             $table->json('options')->nullable();
             $table->double('rating')->default(0);
             $table->boolean('featured')->default(0);
