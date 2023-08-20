@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Events\OrderCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\User;
+use App\Notifications\OrderCreatedNotification;
 use App\Repositories\Cart\CartRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +29,7 @@ class CheckoutController extends Controller
     {
         // dd($request->addr);
         if ($cart->get()->count() == 0) {
-            return redirect()->route('home');
+            return redirect()->route('user.home');
         }
         $request->validate([]);
         DB::beginTransaction();
@@ -51,14 +54,20 @@ class CheckoutController extends Controller
                 $order->addresses()->create($address);
             }
             DB::commit();
-            foreach ($order->products as $product) {
-                $product->decrement('quantity', $product->pivot->quantity);
-            }
-            $cart->empty();
+            // try {
+            //     foreach ($order->products as $product) {
+            //         $product->decrement('quantity', $product->pivot->quantity);
+            //     }
+            // } catch (Throwable $e) {
+            // }
+            // $cart->empty();
+            // $user = User::where('id', $order->user_id)->first();
+            // $user->notify(new OrderCreatedNotification($order));
+            event(new OrderCreated($order));
         } catch (Throwable $e) {
             DB::rollBack();
             throw $e;
         }
-        return redirect()->route('home');
+        return redirect()->route('user.home');
     }
 }

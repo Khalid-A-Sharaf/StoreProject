@@ -6,6 +6,7 @@ use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ProductsController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,13 +20,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('customer.home');
-});
+// Route::get('/', function () {
+//     return view('customer.home');
+// });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', function () {
+    // return view('dashboard');
+    if (Auth::guard('admin')->check()) {
+        return redirect()->route('dashboard.products.index');
+    } else {
+        return redirect()->route('user.home');
+    }
+})->middleware(['auth:web,admin', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,13 +40,3 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-
-// Route::get('/{page}', [AdminController::class, 'index']);
-// Route::get('/', [CategoryController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
-
-Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
-Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
-Route::get('/products/{product:slug}', [ProductsController::class, 'show'])->name('products.show');
-Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
-Route::resource('cart', CartController::class);

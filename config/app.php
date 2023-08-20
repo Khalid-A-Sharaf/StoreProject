@@ -5,10 +5,13 @@ use Illuminate\Support\Facades\App;
 use App\Providers\AppServiceProvider;
 use App\Providers\CartServiceProvider;
 use Illuminate\Support\Facades\Facade;
+use App\Providers\EventServiceProvider;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use App\Providers\BroadcastServiceProvider;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider;
+// use Illuminate\Broadcasting\BroadcastServiceProvider;
+// use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 
 return [
 
@@ -174,7 +177,7 @@ return [
          */
         AppServiceProvider::class,
         AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        BroadcastServiceProvider::class,
         EventServiceProvider::class,
         RouteServiceProvider::class,
         CartServiceProvider::class,

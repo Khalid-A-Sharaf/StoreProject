@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.blank')
 
 @section('css')
 @endsection
@@ -27,7 +27,7 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>اضافة منتج</h5>
+                            <h5>Create Product</h5>
                         </div>
                         <div class="card-body">
                             <div class="digital-add needs-validation">
@@ -42,7 +42,8 @@
                                         @endif
 
                                         <div class="form-group">
-                                            <label for="validationCustomtitle" class="col-form-label pt-0">القسم</label>
+                                            <label for="validationCustomtitle" class="col-form-label pt-0">Category
+                                                :</label>
                                             <select name="category_id" id="" class="form-control">
                                                 <option value="">{{ $product->category->parent->name }}</option>
                                                 @foreach ($parents as $parent)
@@ -55,7 +56,7 @@
 
                                         <div class="form-group">
                                             <label for="validationCustom05" class="col-form-label pt-0">
-                                                الصورة الرئيسية للمنتج</label>
+                                                Main image of the product :</label>
                                             <input class="form-control dropify" id="validationCustom05" type="file"
                                                 name="image" data-default-file="{{ asset($product->image) }}">
                                         </div>
@@ -63,33 +64,33 @@
 
                                         <div class="form-group">
                                             <label for="validationCustom01" class="col-form-label pt-0">
-                                                اسم المنتج</label>
+                                                Product Name :</label>
                                             <input class="form-control" id="validationCustom01" type="text"
                                                 name="name" value="{{ $product->name }}">
                                         </div>
 
 
                                         <div class="form-group">
-                                            <label class="col-form-label">وصف المنتج</label>
+                                            <label class="col-form-label">Product description :</label>
                                             <textarea rows="5" cols="12" class="form-control" name="description">{{ $product->description }}</textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="validationCustom02" class="col-form-label">
-                                                السعر الأساسي للمنتج </label>
+                                                The base price of the product :</label>
                                             <input class="form-control" id="validationCustom02" type="text"
                                                 name="price" value="{{ $product->price }}">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="validationCustom02" class="col-form-label">
-                                                التخفيض الأساسي للمنتج </label>
+                                                discount value :</label>
                                             <input class="form-control" id="validationCustom02" type="text"
                                                 name="discount_price" value="{{ $product->discount_price }}">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="validationCustom02" class="col-form-label">
-                                                الألوان المتاحة للمنتج </label>
+                                                Available colors of the product :</label>
                                             <select class="form-control colors" multiple="multiple" name="colors[]">
                                                 @foreach ($colors as $color)
                                                     <option value="{{ $color }}">{{ $color }}</option>
@@ -103,7 +104,7 @@
 
 
                                     <div class="form-group">
-                                        <button class="btn btn-primary" type="submit">حفظ</button>
+                                        <button class="btn btn-primary" type="submit">Update</button>
                                     </div>
 
 

@@ -13,6 +13,7 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::active()->latest()->get();
-        return view('front.home1', compact('products'));
+        $slider_products = Product::active()->latest()->take(3)->get();
+        return view('front.home1', compact('products', 'slider_products'));
     }
 }

@@ -19,8 +19,8 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="{{ route('home') }}"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="{{ route('products.index') }}">Shop</a></li>
+                        <li><a href="{{ route('user.home') }}"><i class="lni lni-home"></i> Home</a></li>
+                        <li><a href="{{ route('user.products.index') }}">Shop</a></li>
                         <li>Cart</li>
                     </ul>
                 </div>
@@ -64,11 +64,11 @@
                     <div class="cart-single-list item_cart">
                         <div class="row align-items-center">
                             <div class="col-lg-1 col-md-1 col-12">
-                                <a href="{{ route('products.show', $item->product->slug) }}">
+                                <a href="{{ route('user.products.show', $item->product->slug) }}">
                                     <img src="{{ $item->product->image_url }}" alt="#"></a>
                             </div>
                             <div class="col-lg-4 col-md-3 col-12">
-                                <h5 class="product-name"><a href="{{ route('products.show', $item->product->slug) }}">
+                                <h5 class="product-name"><a href="{{ route('user.products.show', $item->product->slug) }}">
                                         {{ $item->product->name }}</a></h5>
                                 <p class="product-des">
                                     <span><em>Type:</em> Mirrorless</span>
@@ -121,8 +121,9 @@
                                         <li class="last">You Pay<span>$2531.00</span></li>
                                     </ul>
                                     <div class="button">
-                                        <a href="checkout.html" class="btn">Checkout</a>
-                                        <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
+                                        <a href="{{ route('user.checkout.create') }}" class="btn">Checkout</a>
+                                        <a href="{{ route('user.home') }}" class="btn btn-alt">Continue
+                                            shopping</a>
                                     </div>
                                 </div>
                             </div>

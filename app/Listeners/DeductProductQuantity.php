@@ -8,6 +8,7 @@ use App\Repositories\Cart\CartRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class DeductProductQuantity
 {
@@ -27,13 +28,11 @@ class DeductProductQuantity
     {
         //
         $order = $event->order;
-        dd($order);
-        foreach ($order->products as $product) {
-            $product->decrement('quantity', $product->pivot->quantity);
-            // Product::where('id', $item->product_id)
-            //     ->update([
-            //         'quantity' => DB::raw('quantity - ' . $item->quantity)
-            //     ]);
+        try {
+            foreach ($order->products as $product) {
+                $product->decrement('quantity', $product->pivot->quantity);
+            }
+        } catch (Throwable $e) {
         }
     }
 }

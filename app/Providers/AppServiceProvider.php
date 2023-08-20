@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Admin;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,15 +38,29 @@ class AppServiceProvider extends ServiceProvider
         }
 
         if (!app()->runningInConsole()) {
-            $user = User::firstOr(function () {
-                return User::create([
+            $admin = Admin::firstOr(function () {
+                return Admin::create([
                     'name' => 'Mohammed Sharaf',
                     'email' => 'moh@gmail.com',
-                    'password' => '123'
+                    // 'password' => Hash::make(123),
+                    'password' => bcrypt(123),
+                    'email_verified_at' => now(),
                 ]);
             });
-            view()->share('user', $user);
+            view()->share('admin', $admin);
         }
+        // if (!app()->runningInConsole()) {
+        //     $user = User::firstOr(function () {
+        //         return User::create([
+        //             'name' => 'Abed Sharaf',
+        //             'email' => 'abd@gmail.com',
+        //             // 'password' => Hash::make(123),
+        //             'password' => bcrypt(123),
+        //             'email_verified_at' => now(),
+        //         ]);
+        //     });
+        //     view()->share('user', $user);
+        // }
 
         Paginator::useBootstrap();
     }

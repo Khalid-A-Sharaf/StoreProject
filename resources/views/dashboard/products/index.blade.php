@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.blank')
 
 @section('css')
     <style>
@@ -39,8 +39,9 @@
 
                         </form> --}}
 
-                            <a class="btn btn-primary mt-md-0 mt-2" href="{{ route('dashboard.products.create') }}">إضافة
-                                منتج جديد</a>
+                            <a class="btn btn-primary mt-md-0 mt-2" href="{{ route('dashboard.products.create') }}"><i
+                                    class="fas fa-plus"></i> Create
+                                New Product</a>
 
 
                         </div>
@@ -59,13 +60,13 @@
                                 <table class="table all-package table-category " id="editableTable">
                                     <thead>
                                         <tr>
-                                            <th>الإسم</th>
-                                            <th>القسم </th>
-                                            <th>السعر الأساسي</th>
-                                            <th>التخفيض الأساسي</th>
-                                            <th>image</th>
-                                            <th>عدد الألوان المتوفرة</th>
-                                            <th></th>
+                                            <th>Name</th>
+                                            <th>Category </th>
+                                            <th>Main Price</th>
+                                            <th>Main Discount</th>
+                                            <th>Image</th>
+                                            <th>Available colors of the product</th>
+                                            <th>Actions</th>
 
                                         </tr>
                                     </thead>
@@ -96,7 +97,7 @@
                                                             <i class="fas fa-pen"></i>
                                                         </a>
                                                         <a href="#" onclick="confirmDestroy({{ $product->id }},this)"
-                                                            class="btn btn-outline-success">
+                                                            class="btn btn-danger">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                     </div>

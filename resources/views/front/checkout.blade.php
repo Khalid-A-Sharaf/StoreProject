@@ -18,8 +18,8 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="{{ route('home') }}"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="{{ route('cart.index') }}">Shop</a></li>
+                        <li><a href="{{ route('user.home') }}"><i class="lni lni-home"></i> Home</a></li>
+                        <li><a href="{{ route('user.cart.index') }}">Shop</a></li>
                         <li>checkout</li>
                     </ul>
                 </div>
@@ -37,7 +37,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
-                    <form action="{{ route('checkout.store') }}" method="POST">
+                    <form action="{{ route('user.checkout.store') }}" method="POST">
                         @csrf
                         <div class="checkout-steps-form-style-1">
                             <ul id="accordionExample">
@@ -137,7 +137,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="single-form button">
-                                                    <button class="btn" data-bs-toggle="collapse"
+                                                    <button class="btn" type="button" data-bs-toggle="collapse"
                                                         data-bs-target="#collapseFour" aria-expanded="false"
                                                         aria-controls="collapseFour">next
                                                         step</button>
@@ -284,7 +284,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="steps-form-btn button">
-                                                    <button class="btn" data-bs-toggle="collapse"
+                                                    <button type="button" class="btn" data-bs-toggle="collapse"
                                                         data-bs-target="#collapseThree" aria-expanded="false"
                                                         aria-controls="collapseThree">previous</button>
                                                     <a href="javascript:void(0)" class="btn btn-alt">Save & Continue</a>

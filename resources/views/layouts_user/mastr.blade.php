@@ -96,7 +96,7 @@
                                     <a href="login.html">Sign In</a>
                                 </li>
                                 <li>
-                                    <a href="register.html">Register</a>
+                                    <a href="register.html">Sign Up</a>
                                 </li>
                             </ul>
                         </div>
@@ -112,7 +112,7 @@
                     <div class="col-lg-3 col-md-3 col-7">
                         <!-- Start Header Logo -->
                         <a class="navbar-brand" href="index.html">
-                            <img src="assets1/images/logo/logo.svg" alt="Logo">
+                            <img src="{{ asset('assets1/images/logo/logo.svg') }}" alt="Logo">
                         </a>
                         <!-- End Header Logo -->
                     </div>
@@ -313,7 +313,7 @@
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="footer-logo">
                                 <a href="index.html">
-                                    <img src="assets1/images/logo/white-logo.svg" alt="#">
+                                    <img src="{{ asset('assets1/images/logo/white-logo.svg') }}" alt="#">
                                 </a>
                             </div>
                         </div>
@@ -422,7 +422,8 @@
                         <div class="col-lg-4 col-12">
                             <div class="payment-gateway">
                                 <span>We Accept:</span>
-                                <img src="assets1/images/footer/credit-cards-footer.png" alt="#">
+                                <img src="{{ asset('assets1/images/footer/credit-cards-footer.png') }}"
+                                    alt="#">
                             </div>
                         </div>
                         <div class="col-lg-4 col-12">

@@ -61,8 +61,8 @@ class SettingController extends Controller
         $validator = Validator($request->all(), [
             'name' => 'string|nullable',
             'description' => 'string|nullable',
-            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
-            'favicon' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|required',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
+            'favicon' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
             'email' => 'email|nullable',
             'phone' => 'string|nullable',
             'address' => 'string|nullable',
@@ -73,17 +73,17 @@ class SettingController extends Controller
             'tiktok' => 'string|nullable',
         ]);
         if (!$validator->fails()) {
+            $data = $request->except('_token', 'logo', 'favicon');
             if ($request->has('logo')) {
                 File::delete(public_path($setting->logo));
                 $path_logo = $request->file('logo')->store('images', 'store');
+                $data['logo'] = $path_logo;
             }
             if ($request->has('favicon')) {
                 File::delete(public_path($setting->favicon));
                 $path_favicon = $request->file('favicon')->store('images', 'store');
+                $data['favicon'] = $path_favicon;
             }
-            $data = $request->except('_token', 'logo', 'favicon');
-            $data['logo'] = $path_logo;
-            $data['favicon'] = $path_favicon;
             $setting->update($data);;
 
             // $setting->name = $request->name;

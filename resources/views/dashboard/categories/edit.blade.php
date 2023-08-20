@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.blank')
 
 @section('css')
 @endsection
@@ -47,12 +47,12 @@
                                     @csrf
                                     @method('put')
                                     <div class="form-group">
-                                        <label for="validationCustom01" class="mb-1">الإسم :</label>
+                                        <label for="validationCustom01" class="mb-1">Name :</label>
                                         <input class="form-control" id="validationCustom01" type="text"
                                             name="name" value="{{ $category->name }}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="validationCustom01" class="mb-1">القسم الرئيسي </label>
+                                        <label for="validationCustom01" class="mb-1">Main Category : </label>
                                         <select name="parent_id" id="" class="form-control">
                                             <option value="">قسم رئيسي</option>
                                             @foreach ($parents as $parent)
@@ -65,7 +65,7 @@
                                     {{-- @endif --}}
 
                                     <div class="form-group mb-0">
-                                        <label for="validationCustom02" class="mb-1">الصورة :</label>
+                                        <label for="validationCustom02" class="mb-1">Image :</label>
                                         <input class="form-control dropify" id="validationCustom02" type="file"
                                             name="image" data-default-file="{{ asset($category->image) }}">
                                     </div>

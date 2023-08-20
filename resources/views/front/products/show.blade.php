@@ -17,8 +17,8 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="{{ route('home') }}"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="{{ route('products.index') }}">Shop</a></li>
+                        <li><a href="{{ route('user.home') }}"><i class="lni lni-home"></i> Home</a></li>
+                        <li><a href="{{ route('user.products.index') }}">Shop</a></li>
                         <li>{{ $product->name }}</li>
                     </ul>
                 </div>
@@ -61,7 +61,7 @@
                                 @endif
                             </h3>
                             <p class="info-text">{{ $product->description }}</p>
-                            <form action="{{ route('cart.store') }}" method="post">
+                            <form action="{{ route('user.cart.store') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                                 <div class="row">

@@ -33,12 +33,12 @@ class Order extends Model
         return $this->hasMany(OrderAddress::class);
     }
 
-    public function BillingAddress()
+    public function billingAddress()
     {
         return $this->hasOne(OrderAddress::class, 'order_id', 'id')->where('type', 'billing');
     }
 
-    public function ShippingAddress()
+    public function shippingAddress()
     {
         return $this->hasOne(OrderAddress::class, 'order_id', 'id')->where('type', 'shipping');
     }

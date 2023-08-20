@@ -1,13 +1,18 @@
-@extends('layouts.master')
+@extends('layouts.blank')
 
 @section('css')
-    <link href="{{ URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <style>
+        .dropify-wrapper .dropify-message p {
+            font-size: 20px
+        }
+    </style>
+    {{-- <link href="{{ URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
     <!---Internal Owl Carousel css-->
     <link href="{{ URL::asset('assets/plugins/owl-carousel/owl.carousel.css') }}" rel="stylesheet">
     <!---Internal  Multislider css-->
-    <link href="{{ URL::asset('assets/plugins/multislider/multislider.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/plugins/multislider/multislider.css') }}" rel="stylesheet"> --}}
 @endsection
 
 
@@ -69,27 +74,27 @@
                             <div class="d-flex justify-content-between">
                                 <a class="modal-effect btn btn-outline-primary" data-effect="effect-scale"
                                     data-bs-toggle="modal" data-bs-target="#exampleModal" href="">
-                                    <i class="fas fa-plus" style="padding-left: 8px"></i>اضافة قسم</a>
+                                    <i class="fas fa-plus" style="padding-left: 8px"></i> Create Category</a>
                             </div>
                             {{-- </div> --}}
                         </div>
 
-                        <div class="card-body">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                            <div class="table-responsive table-desi">
-                                <table class="table all-package table-category">
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        {{-- <div class="table-responsive table-desi">
+                                <table class="table table-bordered dataTable" style="text-align: center" role="grid"
+                                    cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
                                             <th>الإسم</th>
-                                            {{-- <th>الإسم</th> --}}
                                             <th>الصورة</th>
                                             <th>نوع القسم</th>
                                             <th>الاعدادات</th>
@@ -101,15 +106,12 @@
                                         @foreach ($categories as $category)
                                             <tr>
 
-                                                {{-- <td>{{ $loop->iteration }}</td> --}}
                                                 <td>{{ $category->name }}</td>
                                                 <td><img style="height: 80px; width: 70px"
                                                         src="{{ asset($category->image) }}" alt="">
                                                 </td>
                                                 <td>{{ $category->parent->name }}</td>
-                                                {{-- <td>{{ $category->parent }}</td> --}}
                                                 <td>
-                                                    {{-- <div class="btn-group"> --}}
                                                     <a href="{{ route('dashboard.categories.edit', $category->id) }}"
                                                         class="btn btn-primary">
                                                         <i class="fas fa-pen"></i>
@@ -118,15 +120,77 @@
                                                         class="btn btn-danger">
                                                         <i class="fas fa-trash"></i>
                                                     </a>
-                                                    {{-- </div> --}}
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                                 {{ $categories->withQueryString()->links() }}
+                            </div> --}}
+
+
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table caption-top table-hover" style="text-align: center" id="dataTable"
+                                        width="100%" cellspacing="0">
+
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Image</th>
+                                                <th scope="col">Category</th>
+                                                <th scope="col">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Image</th>
+                                                <th scope="col">Category</th>
+                                                <th scope="col">Actions</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @php
+                                                $i = 1;
+                                            @endphp
+                                            @forelse ($categories as $category)
+                                                <tr>
+                                                    <td>{{ $i }}</td>
+                                                    <td>{{ $category->name }}</td>
+                                                    <td><img style="height: 80px; width: 70px"
+                                                            src="{{ asset($category->image) }}" alt=""></td>
+                                                    <td>{{ $category->parent->name }}</td>
+                                                    <td> <a href="{{ route('dashboard.categories.edit', $category->id) }}"
+                                                            class="btn btn-primary">
+                                                            <i class="fas fa-pen"></i>
+                                                        </a>
+                                                        <a href="#" onclick="confirmDestroy({{ $category->id }},this)"
+                                                            class="btn btn-danger">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                        </tbody>
+                                        @php
+                                            $i++;
+                                        @endphp
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center">No data found</td>
+                                        </tr>
+                                        @endforelse
+                                    </table>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -144,7 +208,8 @@
                     <form id="create-form">
                         @csrf
                         <div class="modal-header">
-                            <h5 class="modal-title f-w-600" id="exampleModalLabel">اضافة قسم جديد </h5>
+                            <h5 class="modal-title f-w-600" id="exampleModalLabel">Create New Category
+                            </h5>
                             {{-- <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">×</span></button> --}}
                             <button aria-label="Close" class="close" data-bs-dismiss="modal" type="button"><span
@@ -153,22 +218,23 @@
                         <div class="modal-body">
 
                             <div class="form-group">
-                                <label for="validationCustom01" class="mb-1">الإسم :</label>
-                                <input class="form-control" id="name" type="text" name="name">
+                                <label for="validationCustom01" class="m-0">Name :</label>
+                                <input class="form-control" id="name" type="text" placeholder="Enter Name"
+                                    name="name">
                             </div>
 
 
                             <div class="form-group">
-                                <label for="validationCustom01" class="mb-1">القسم الرئيسي </label>
+                                <label for="validationCustom01" class="mb-1">Main Category :</label>
                                 <select name="parent_id" id="parent_id" class="form-control">
-                                    <option value="" selected>قسم رئيسي</option>
+                                    <option value="" selected>Main Category</option>
                                     @foreach ($mainCategories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group mb-0">
-                                <label for="validationCustom02" class="mb-1">الصورة :</label>
+                                <label for="validationCustom02" class="mb-1">Image :</label>
                                 <input class="form-control dropify" id="image" type="file" name="image">
                             </div>
 
@@ -180,8 +246,8 @@
                     </div> --}}
 
                         <div class="modal-footer">
-                            <button class="btn btn-success" onclick="store()" type="button">تأكيد</button>
-                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">اغلاق</button>
+                            <button class="btn btn-success" onclick="store()" type="button">Confirm</button>
+                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
                         </div>
                     </form>
 

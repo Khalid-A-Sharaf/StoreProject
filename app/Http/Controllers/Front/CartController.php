@@ -47,7 +47,7 @@ class CartController extends Controller
         ]);
         $product = Product::findOrFail($request->product_id);
         $this->cart->add($product, $request->quantity);
-        return redirect()->route('cart.index')->with('success', 'Product added to cart!');
+        return redirect()->route('user.cart.index')->with('success', 'Product added to cart!');
     }
 
     /**
@@ -86,9 +86,11 @@ class CartController extends Controller
     public function destroy($id)
     {
         //
+        $items = $this->cart->get();
+        $items = $items->count() - 1;
         $isDeleted =  $this->cart->delete($id) ?? 1;
         if ($isDeleted) {
-            return response()->json(['title' => 'success', 'text' => 'Product Deleted Successfully', 'icon' => 'success'], Response::HTTP_OK);
+            return response()->json(['title' => 'success', 'text' => 'Product Deleted Successfully', 'icon' => 'success', 'items' => $items], Response::HTTP_OK);
         } else {
             return response()->json(['title' => 'Error', 'text' => 'Product Deleted Failed', 'icon' => 'error'], Response::HTTP_BAD_REQUEST);
         }
